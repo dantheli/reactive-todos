@@ -1,6 +1,7 @@
 import Foundation
 import ReactiveSwift
 import PromiseKit
+import Result
 
 class TodoListViewModel: ViewModel<TodoListViewModel.Dependencies, TodoListViewModel.UserAction> {
     struct Dependencies {
@@ -11,6 +12,8 @@ class TodoListViewModel: ViewModel<TodoListViewModel.Dependencies, TodoListViewM
         case presentAdd(() -> Void)
         case clearAll
     }
+
+    let (action, userActionObserver) = Signal<UserAction, NoError>.pipe()
 
     var todos: Property<[Todo]>!
     var filteredTodos: Property<[Todo]>!
