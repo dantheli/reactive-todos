@@ -1,0 +1,11 @@
+# platform :ios, '9.0'
+
+target 'ReactiveTodos' do
+  use_frameworks!
+
+  # Pods for ReactiveTodos
+  pod 'ReactiveCocoa'
+  pod 'PromiseKit'
+  pod 'SnapKit'
+
+end
