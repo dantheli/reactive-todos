@@ -30,6 +30,9 @@ class TodoListViewModel: ViewModel<TodoListViewModel.Dependencies, TodoListViewM
     func handle(userAction: TodoListViewModel.UserAction) {
         switch userAction {
         case .presentAdd:
+            let viewModel = AddTodoViewModel(dependencies: AddTodoViewModel.Dependencies(todos: todos.value))
+            let addVC = viewModel.createViewController()
+//            viewController.navigationController?.pushViewController(addVC, animated: true)
             print("Adding")
         case .clearAll:
             print("Clear all")
