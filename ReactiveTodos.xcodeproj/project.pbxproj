@@ -16,6 +16,7 @@
 		65A50D792071D2D6002516C5 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A50D782071D2D6002516C5 /* Todo.swift */; };
 		6D63F6E42072722D008EA441 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D63F6E32072722D008EA441 /* AddTodoViewController.swift */; };
 		6D63F6E620727282008EA441 /* AddTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D63F6E520727282008EA441 /* AddTodoViewModel.swift */; };
+		65B1786920728A0D00F7E1D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1786820728A0D00F7E1D4 /* ViewController.swift */; };
 		E7772FE496AB0A666A33F595 /* Pods_ReactiveTodos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F832400B2C0A475C2403721 /* Pods_ReactiveTodos.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		65A50D782071D2D6002516C5 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		6D63F6E32072722D008EA441 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
 		6D63F6E520727282008EA441 /* AddTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewModel.swift; sourceTree = "<group>"; };
+		65B1786820728A0D00F7E1D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8F832400B2C0A475C2403721 /* Pods_ReactiveTodos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReactiveTodos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9672489C525923D9F156FCF /* Pods-ReactiveTodos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactiveTodos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReactiveTodos/Pods-ReactiveTodos.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,12 +77,21 @@
 				65A50D642071CE60002516C5 /* TodoListViewController.swift */,
 				65A50D762071D297002516C5 /* TodoListViewModel.swift */,
 				65A50D782071D2D6002516C5 /* Todo.swift */,
-				65A50D742071CF37002516C5 /* ViewModel.swift */,
+				65B17867207288B300F7E1D4 /* MVVM */,
 				65A50D692071CE60002516C5 /* Assets.xcassets */,
 				65A50D6B2071CE60002516C5 /* LaunchScreen.storyboard */,
 				65A50D6E2071CE60002516C5 /* Info.plist */,
 			);
 			path = ReactiveTodos;
+			sourceTree = "<group>";
+		};
+		65B17867207288B300F7E1D4 /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				65A50D742071CF37002516C5 /* ViewModel.swift */,
+				65B1786820728A0D00F7E1D4 /* ViewController.swift */,
+			);
+			path = MVVM;
 			sourceTree = "<group>";
 		};
 		A19CA1EE6A3DE5C552F78ACE /* Pods */ = {
@@ -236,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B1786920728A0D00F7E1D4 /* ViewController.swift in Sources */,
 				65A50D772071D297002516C5 /* TodoListViewModel.swift in Sources */,
 				65A50D652071CE60002516C5 /* TodoListViewController.swift in Sources */,
 				65A50D752071CF37002516C5 /* ViewModel.swift in Sources */,
