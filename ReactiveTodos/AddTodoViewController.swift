@@ -13,6 +13,8 @@ import ReactiveSwift
 
 class AddTodoViewController: UIViewController {
     
+    var addButton: UIBarButtonItem!
+    
     var textField = UITextField()
 
     override func viewDidLoad() {
@@ -20,7 +22,7 @@ class AddTodoViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        textField.reactive.text <~ viewModel.todo
+//        textField.reactive.text <~ viewModel.todo
         viewModel.todo <~ textField.reactive.continuousTextValues.skipNil()
         
         view.addSubview(textField)
@@ -30,6 +32,12 @@ class AddTodoViewController: UIViewController {
         }
         
         textField.becomeFirstResponder()
+        
+        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        addButton.reactive.pressed = CocoaAction(viewModel.userAction, input: .finishAdd { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+            })
+        navigationItem.rightBarButtonItem = addButton
         print("Adding")
     }
 

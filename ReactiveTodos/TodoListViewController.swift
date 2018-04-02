@@ -21,6 +21,12 @@ class TodoListViewController: UIViewController {
         view.backgroundColor = .white
 
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        for x in viewModel.todos.value {
+            print(x.title)
+        }
+    }
 }
 
 extension TodoListViewController: HasViewModel {

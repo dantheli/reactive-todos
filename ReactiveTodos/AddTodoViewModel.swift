@@ -15,21 +15,21 @@ class AddTodoViewModel: ViewModel<AddTodoViewModel.Dependencies, AddTodoViewMode
     }
     
     enum UserAction {
-        case finishAdd
+        case finishAdd(() -> Void)
     }
     
     var todos: MutableProperty<[Todo]>!
     var todo = MutableProperty<String>("")
     
-    func configure(dependencies: TodoListViewModel.Dependencies) {
+    override func configure(dependencies: AddTodoViewModel.Dependencies) {
         todos = MutableProperty<[Todo]>(dependencies.todos)
-        
     }
     
-    func handle(userAction: AddTodoViewModel.UserAction) {
-        switch userAction {
-        case .finishAdd:
+    override func handle(action: AddTodoViewModel.UserAction) {
+        switch action {
+        case .finishAdd(let completion):
             todos.value.append(Todo(title: todo.value, completed: false))
+            completion()
             print("Finishing Add")
         }
     }
