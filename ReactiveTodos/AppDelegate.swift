@@ -15,7 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        let viewModel = TodoListViewModel(dependencies: TodoListViewModel.Dependencies(todos: []))
+        let viewController = viewModel.createViewController()
+
+        window = UIWindow()
+        window?.rootViewController = viewController
+        window?.makeKeyAndVisible()
+
         return true
     }
 
