@@ -1,5 +1,6 @@
 import Foundation
 import ReactiveSwift
+import PromiseKit
 
 class TodoListViewModel: ViewModel<TodoListViewModel.Dependencies, TodoListViewModel.UserAction> {
     struct Dependencies {
@@ -7,7 +8,7 @@ class TodoListViewModel: ViewModel<TodoListViewModel.Dependencies, TodoListViewM
     }
 
     enum UserAction {
-        case presentAdd
+        case presentAdd(() -> Void)
         case clearAll
     }
 
@@ -15,7 +16,7 @@ class TodoListViewModel: ViewModel<TodoListViewModel.Dependencies, TodoListViewM
     var filteredTodos: Property<[Todo]>!
     var query = MutableProperty<String>("")
 
-    func configure(dependencies: TodoListViewModel.Dependencies) {
+    override func configure(dependencies: TodoListViewModel.Dependencies) {
         todos = Property<[Todo]>(value: dependencies.todos)
         
         let filteredTodosSignal = Signal.combineLatest(todos.signal, query.signal)
@@ -25,15 +26,17 @@ class TodoListViewModel: ViewModel<TodoListViewModel.Dependencies, TodoListViewM
                 }
             }
         filteredTodos = Property<[Todo]>(initial: [], then: filteredTodosSignal)
+
+        query.signal.observeValues { value in
+            print(value)
+        }
     }
 
-    func handle(userAction: TodoListViewModel.UserAction) {
-        switch userAction {
-        case .presentAdd:
-            let viewModel = AddTodoViewModel(dependencies: AddTodoViewModel.Dependencies(todos: todos.value))
-            let addVC = viewModel.createViewController()
-//            viewController.navigationController?.pushViewController(addVC, animated: true)
+    override func handle(action: TodoListViewModel.UserAction) {
+        switch action {
+        case .presentAdd(let completion):
             print("Adding")
+            completion()
         case .clearAll:
             print("Clear all")
         }

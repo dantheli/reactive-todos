@@ -2,38 +2,29 @@ import UIKit
 import ReactiveSwift
 import Result
 
-protocol ViewModelType {
-    associatedtype UserActionType
-    associatedtype DependenciesType
-    func handle(userAction: UserActionType)
-    func configure(dependencies: DependenciesType)
-}
+class ViewModel<Dependencies, UserAction>: NSObject {
 
-extension ViewModelType {
-    func handle(userAction: UserActionType) {}
-    func configure(dependencies: DependenciesType) {}
-}
-
-class ViewModel<Dependencies, UserAction>: NSObject, ViewModelType {
-    typealias DependenciesType = Dependencies
-    typealias UserActionType = UserAction
-
-    let (userAction, userActionObserver) = Signal<UserAction, NoError>.pipe()
+    lazy var userAction: Action<UserAction, Void, NoError> = {
+        return Action<UserAction, Void, NoError> { [weak self] value in
+            self?.handle(action: value)
+            return .empty
+        }
+    }()
 
     init(dependencies: Dependencies) {
         super.init()
         configure(dependencies: dependencies)
-        userAction.observeValues { [weak self] action in
-            self?.handle(userAction: action)
-        }
     }
+
+    func configure(dependencies: Dependencies) {}
+    func handle(action: UserAction) {}
 }
 
 protocol HasViewController {
     associatedtype ViewController: HasViewModel
 }
 
-extension HasViewController where ViewController.ViewModel == Self, ViewController: UIViewController {
+extension HasViewController where ViewController.ViewModelType == Self, ViewController: UIViewController {
     func createViewController() -> ViewController  {
         var viewController = ViewController()
         viewController.viewModel = self
@@ -42,16 +33,16 @@ extension HasViewController where ViewController.ViewModel == Self, ViewControll
 }
 
 protocol HasViewModel {
-    associatedtype ViewModel
-    var viewModel: ViewModel { get set }
+    associatedtype ViewModelType
+    var viewModel: ViewModelType { get set }
 }
 
 private var ViewModelAssociatedKey: UInt8 = 0
 
 extension HasViewModel where Self: UIViewController {
-    var viewModel: ViewModel {
+    var viewModel: ViewModelType {
         get {
-            return objc_getAssociatedObject(self, &ViewModelAssociatedKey) as! ViewModel
+            return objc_getAssociatedObject(self, &ViewModelAssociatedKey) as! ViewModelType
         }
         set {
             objc_setAssociatedObject(self, &ViewModelAssociatedKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)

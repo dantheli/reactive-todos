@@ -18,6 +18,8 @@ class AddTodoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         textField.reactive.text <~ viewModel.todo
         viewModel.todo <~ textField.reactive.continuousTextValues.skipNil()
         
@@ -34,5 +36,5 @@ class AddTodoViewController: UIViewController {
 }
 
 extension AddTodoViewController: HasViewModel {
-    typealias ViewModel = AddTodoViewModel
+    typealias ViewModelType = AddTodoViewModel
 }
