@@ -43,15 +43,15 @@ extension HasViewController where ViewController.ViewModel == Self, ViewControll
 
 protocol HasViewModel {
     associatedtype ViewModel
-    var viewModel: ViewModel? { get set }
+    var viewModel: ViewModel { get set }
 }
 
 private var ViewModelAssociatedKey: UInt8 = 0
 
 extension HasViewModel where Self: UIViewController {
-    var viewModel: ViewModel? {
+    var viewModel: ViewModel {
         get {
-            return objc_getAssociatedObject(self, &ViewModelAssociatedKey) as? ViewModel
+            return objc_getAssociatedObject(self, &ViewModelAssociatedKey) as! ViewModel
         }
         set {
             objc_setAssociatedObject(self, &ViewModelAssociatedKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
